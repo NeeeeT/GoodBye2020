@@ -1,0 +1,399 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap');
+
+@font-face{
+    font-family: NingXuTi;
+    src: url('../fonts/ningxuti.otf');
+}
+@font-face{
+    font-family: Baskerville;
+    src: url('../fonts/Baskerville.ttc');
+}
+html, body{
+    width: 100%;
+    height: 100%;
+    background-color: #e5e5e5;
+    /* background: linear-gradient(180deg, rgba(229, 229, 229, 0) 55.21%, rgba(241, 241, 210, 0.479167) 82%, #FFFEBD 100%), #E5E5E5; */
+}
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+.author-body{
+    background-image: url('../images/authorbg.png');
+    background-position: center;
+    background-size: contain;
+}
+body{
+    width: 100%;
+    /* border-left: #000 2px solid; */
+    /* border-right: #000 2px solid; */
+    overflow-x: hidden;
+}
+.wrap{
+    /* position: fixed; */
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.main-header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 150px;
+    z-index: 110;
+    /* background-color: #e5e5e5; */
+}
+/* .logo .bottom{
+    background-color: #1a1a1a;
+} */
+.main-header .sun{
+    width: 150px;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    border-right: 2px solid #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #e5e5e5;
+}
+.wrap .logo{
+    width: 100%;
+    /* text-align: center; */
+}
+.wrap .sun img{
+    width: 60px;
+    height: 60px;
+}
+.wrap .sun p{
+    color: #1a1a1a;
+    font-size: 18px;
+    font-family: 'Noto Sans TC';
+    font-weight: bold;
+}
+
+.logo .top{
+    position: relative;
+
+    width: 100%;
+    height: 75px;
+    border-bottom: 2px solid #000;
+    border-top: 2px solid #000;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top .header-img{
+    flex: 1.5;
+    text-align: right;
+}
+.top .right-side-box{
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* align-items: center; */
+}
+.choose-weather, .author{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
+    align-items: center;
+}
+.right-side-box a{
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+    margin-left: 10px;
+}
+.switch input{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.switch .slider{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e5e5e5;
+    transition: .4s;
+    border: #000 solid 1px;
+}
+.switch .slider::before{
+    position: absolute;
+    content: '';
+    height: 18px;
+    width: 18px;
+    left: 7px;
+    bottom: 4px;
+    background-color: #000;
+    transition: .4s;
+}
+
+input:checked + .slider{
+    background-color: #333;
+}
+input:focus + .slider{
+    box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .slider::before{
+    transform: translateX(26px);
+    background-color: #fff;
+}
+
+.slider.round{
+    border-radius: 34px;
+}
+.slider.round::before{
+    border-radius: 50%;
+}
+.preface{
+    width: 100%;
+
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    margin-top: 50vh;
+    z-index: 100;
+}
+.preface h1{
+    font-size: 30px;
+    color: #1a1a1a;
+}
+/* .preface blockquote::before{ */
+#typewriter::before{
+    content: '';
+    border-left: 2px solid #1a1a1a;
+    margin-right: 10px;
+}
+/* .preface blockquote{ */
+#typewriter{
+    width: 80%;
+    font-size: 20px;
+    line-height: 40px;
+    color: #1a1a1a;
+    margin: 25px 0 25px 0;
+    text-align: center;
+}
+.preface img{
+    width: 15px;
+}
+
+.content-img{
+    width: 100%;
+    height: 100%;
+
+    transition: .9s;
+    transition-timing-function: ease-in;
+    z-index: 100;
+}
+.content-imgs{
+    width: 100%;
+    margin-top: -73px;
+}
+.TrashCan{
+    visibility: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 101;
+    /* align-items: flex-start; */
+
+    transition: .6s;
+    /* background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(180deg, rgba(229, 229, 229, 0) 55.21%, rgba(241, 241, 210, 0.479167) 82.29%, #FFFEBD 100%), #E5E5E5; */
+}
+.month{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+    cursor: pointer;
+
+    height: 0px; /* change later (35px */
+    /* margin-top: 35px; */
+    /*show later*/
+    z-index: 101;
+
+    font-family: Baskerville;
+    font-weight: 600;
+    font-size: 24px;
+}
+.month:hover{
+    /* background-color: #FFFEBD; */
+}
+.month::before, .month::after{
+    content: '';
+    width: 25%;
+    /* height: 35px; */
+    /* flex: 0.5 0.5; */
+    /* flex-grow, flex-shrink, flex-basis*/
+    border-bottom: 1px solid #1a1a1a;
+    margin: auto;
+}
+.month .txt{
+    /* height: 0; */
+    font-size: 40px;
+    color: #1a1a1a;
+}
+.month::before{
+    margin-left: 8vw;
+}
+.month::after{
+    margin-right: 8vw;
+}
+.trashImg{
+    position: relative;
+    display: inline-block;
+    width: 45%;
+    height: 400px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 100;
+}
+.trashText{
+    width: 35%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* margin: auto; */
+    z-index: 100;
+
+    font-family: NingXuTi;
+    font-size: 16px;
+    text-align: left;
+    /* margin: 0 auto; */
+}
+
+
+#defaultCanvas0{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+}
+.side-bar{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    /* z-index: 200; */
+    background-image: url('../images/authorbg.png');
+    /* background-position: center; */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    opacity: 0;
+    transition: 0.5s;
+}
+.side-bar p{
+    font-family: 'Baskerville';
+    font-size: 100px;
+    color: #e5e5e5;
+}
+.side-bar-month-container{
+    text-align: right;
+}
+.side-bar-month-container div{
+    color: #e5e5e5;
+    font-size: 35px;
+}
+.side-bar-toggle{
+    position: fixed;
+    top: 50%;
+    font-size: 20px;
+    transform: rotate(-90deg);
+    /* transform: translateZ(50%); */
+    letter-spacing: 18px;
+    line-height: 44px;
+    color: #333;
+    z-index: 110;
+    cursor: pointer;
+
+    transition: opacity .8s;
+}
+.side-bar-toggle::after{
+    content: '';
+    display: flex;
+    border-bottom: 2px solid #333;
+    transform: translateX(-11px);
+}
+.anim-typewriter{
+    font-family: 'Noto Sans TC';
+    font-size: 28px;
+    font-weight: 500;
+    width: 600px;
+}
+.line-1{
+    position: relative;
+    top: 50%;  
+    width: 100%;
+    /* border-right: 2px solid rgba(255,255,255,.75); */
+    font-size: 25px;
+    white-space: nowrap;    
+    overflow: hidden;
+    transition: 0.5s; 
+    /* transform: translateY(60%); */
+
+    display: inline;
+    /* display: flex; */
+}
+/* Animation below */
+.anim-typewriter{
+    animation: typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor 400ms steps(44) infinite normal;
+    /* animation: typewriter 5s steps(100) 1s normal both; */
+} 
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 100%;}
+}
+/* @keyframes blinkTextCursor{
+    from{border-right-color: #1a1a1a;}
+    to{border-right-color: transparent;}
+} */
+
+#arrow{
+    animation-iteration-count: infinite;
+    animation-name: blink;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-direction: normal;
+    transition: .3s;
+}
+@keyframes blink{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}

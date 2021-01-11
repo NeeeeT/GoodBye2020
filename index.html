@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2020 爛事垃圾桶</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+    <script src="./js/draw.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/index.js"></script>
+</head>
+
+<body id='body'>
+    <div class="wrap" id='wrap'>
+        <div class="main-header">
+            <div class="sun">
+                <img src="./images/sun.png" alt="">
+                <p>天氣晴</p>
+            </div>
+            <div class="logo">
+                <div class="top">
+                    <div class="header-img">
+                        <img src="./images/mainLogo.png" alt="">
+                    </div>
+                    <div class="right-side-box">
+                        <div class="choose-weather">
+                            <a href="#">選擇天氣</a>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class='author'>
+                            <a href="./author.html">作者介紹</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom" id='logo-bottom' style="height: 50%; width: 100%;"></div>
+            </div>
+        </div>
+        <div class="preface">
+            <h1>Welcome</h1>
+            <div>
+                <blockquote class='line-1 anim-typewriter' id='typewriter'>2020年的地球，有太多身不由己的遺憾，你的2020是否也倒霉不斷？</blockquote>
+            </div>
+            <img id='arrow' src="./images/arrow.png" alt="">
+        </div>
+        <div class="content-img" style="opacity: 0;">
+            <img class='content-imgs' src="./images/main.png" alt="">
+        </div>
+        <div class="TrashCan">
+            <div class='month' id="1th">
+                <div class="txt">GoodBye January</div>
+            </div>
+            <div class='month' id="2th">
+                <div class="txt">GoodBye February</div>
+            </div>
+            <div class='month' id="3th">
+                <div class="txt">GoodBye March</div>
+            </div>
+            <div class='month' id="4th">
+                <div class="txt">GoodBye April</div>
+            </div>
+            <div class='month' id="5th">
+                <div class="txt">GoodBye May</div>
+            </div>
+            <div class='month' id="6th">
+                <div class="txt">GoodBye June</div>
+            </div>
+            <div class='month' id="7th">
+                <div class="txt">GoodBye July</div>
+            </div>
+            <div class='month' id="8th">
+                <div class="txt">GoodBye August</div>
+            </div>
+            <div class='month' id="9th">
+                <div class="txt">GoodBye September</div>
+            </div>
+            <div class='month' id="10th">
+                <div class="txt">GoodBye October</div>
+            </div>
+            <div class='month' id="11th">
+                <div class="txt">GoodBye November</div>
+            </div>
+            <div class='month' id="12th">
+                <div class="txt">GoodBye December</div>
+            </div>
+            <div class='month' id="none">
+                <div class="txt">GoodBye 2020</div>
+            </div>
+        </div>
+    </div>
+    <div class="side-bar">
+        <div class="">
+            <p>Choose A Month</p>
+            <p>Choose A Month</p>
+            <p>Choose A Month</p>
+        </div>
+        <div class="side-bar-month-container">
+            <div class="side-bar-month">JANUARY</div>
+            <div class="side-bar-month">FEBRUARY</div>
+            <div class="side-bar-month">MARCH</div>
+            <div class="side-bar-month">ARPIL</div>
+            <div class="side-bar-month">MAY</div>
+            <div class="side-bar-month">JUNE</div>
+            <div class="side-bar-month">JULY</div>
+            <div class="side-bar-month">AUGUST</div>
+            <div class="side-bar-month">SEPTEMBER</div>
+            <div class="side-bar-month">OCTOBER</div>
+            <div class="side-bar-month">NOVEMBER</div>
+            <div class="side-bar-month">DECEMBER</div>
+        </div>
+    </div>
+    <a class="side-bar-toggle">選擇月份</a>
+</body>
+<script>
+    window.onload = () => {
+        localStorage.setItem('currentStep', JSON.stringify({ count: '1' }));
+
+
+        InsertEleAfterEle = (newNode, referenceNode) => {
+            referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+        }
+        ToggleMonthBadThings = (mon) => {
+            if (mon < 1 || mon > 12) return;
+
+            let monthContent = document.getElementById(String(mon) + 'th');
+            let divBlock = document.createElement('div');
+            let trashCan = document.getElementsByClassName('TrashCan')[0];
+            let otherMonBlock = document.getElementsByClassName('month-content');
+
+            for(let i = 0; i < otherMonBlock.length; i++){
+                    trashCan.removeChild(otherMonBlock[i]);
+            }
+
+            divBlock.style.width = '100%';
+            divBlock.style.height = 'auto';
+            divBlock.style.position = 'relative'
+            divBlock.className = 'month' + String(mon) + ' month-content';
+            divBlock.id = String(mon);
+            divBlock.style.textAlign = 'right';
+
+            InsertEleAfterEle(divBlock, monthContent);
+            for (let i = 0; i < months[mon].length; i++) {
+                divBlock.innerHTML += `
+                    <div class='trashImg' style="background-image: url('./images/trash${Math.floor(Math.random() * 5 + 1)}.png');">
+                        <div class='trashText'>${months[mon][i][1]}<br><br>——${months[mon][i][0]}</div>
+                    </div>
+                    `;
+            }
+            let theMon = document.getElementsByClassName('month'+String(mon))[0];
+            lastClickedMon = theMon;
+
+            if(p5Canvas.length >= 1)
+                p5Canvas[0].remove();
+            p5Canvas = [];
+
+            let newCanvas = new p5(setRain, theMon);
+            p5Canvas.push(newCanvas);
+        }
+        ChangeTypewriterText = () => {
+            let _typewriter = document.getElementById('typewriter');
+            let currentStep = JSON.parse(localStorage.getItem('currentStep'));
+
+            if (currentStep.count === '1') {
+                _typewriter.style.display = 'none';
+                setTimeout(() => {
+                    _typewriter.innerText = '這些爛事是否像瘟神一樣困擾你？那就交給2020爛事垃圾桶幫你封存!';
+                    _typewriter.style.display = 'block';
+                    localStorage.setItem('currentStep', JSON.stringify({ count: '2' }));
+                }, 10);
+            }
+            else if (currentStep.count === '2') {
+                let wholeWrap = document.getElementById('wrap');
+                let logoBottom = document.getElementById('logo-bottom')
+                let backgroundImg = document.getElementsByClassName('content-img')[0];
+                let trashCan = document.getElementsByClassName('TrashCan')[0];
+                let monthClick = document.getElementsByClassName('month');
+                // let monthContentBlock = document.getElementsByClassName('month-content');
+
+                wholeWrap.removeChild(document.getElementsByClassName('preface')[0]);
+                backgroundImg.style.opacity = 1;
+                trashCan.style.visibility = 'visible';
+                _typewriter.style.animationPlayState = 'paused';
+                localStorage.setItem('currentStep', JSON.stringify({ count: '-1' }));
+
+                let months = document.getElementsByClassName('month');
+                for (let i = 0; i < months.length; i++) {
+                    months[i].style.height = '35px';
+                    months[i].style.marginTop = '35px';
+                }
+                for (let i = 0; i < monthClick.length; i++) {
+                    monthClick[i].addEventListener('click', () => {
+                        ToggleMonthBadThings(i + 1);
+                    })
+                }
+            }
+        }
+        let body = document.getElementById('body');
+        body.addEventListener('click', () => {
+            ChangeTypewriterText();
+        })
+        let sideBarBtn = document.getElementsByClassName('side-bar-toggle')[0];
+        let sideBarToggle = false;
+        sideBarBtn.addEventListener('click', () => {
+            let sideBar = document.getElementsByClassName('side-bar')[0];
+            sideBarToggle = !sideBarToggle;
+            if(sideBarToggle){
+                sideBar.style.opacity = 1;
+                sideBar.style.zIndex = 200;
+                sideBarBtn.style.zIndex = 210;
+                sideBarBtn.innerText = '返回首頁';
+                sideBarBtn.style.color = "#e5e5e5";
+            }
+            else{
+                sideBar.style.opacity = 0;
+                sideBar.style.zIndex = 0;
+                sideBarBtn.style.zIndex = 110;
+                sideBarBtn.innerText = '選擇月份';
+                sideBarBtn.style.color = "#333";
+            }
+        })
+    }
+</script>
+<script>
+</script>
+
+</html>
