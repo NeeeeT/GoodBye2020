@@ -1,20 +1,22 @@
 var p5Canvas = [];
+var snowflakes = [];
 var rain = [];
-// var lastClickedMon = document.getElementsByTagName('html');
+var bubbles = [];
 var rainingNow = true;
 var bgcolor = "#e5e5e5";
+// var weatherToggle = false;
 
 let setRain = (p) => {
-    p.setup =  function(i) {
+    p.setup = function (i) {
         p.createCanvas(lastClickedMon.offsetWidth, lastClickedMon.offsetHeight);
         p.frameRate(60);
 
         for (i = 0; i < 100; i++) {
             rain[i] = new Rain(p, p.random(50, lastClickedMon.offsetWidth), p.random(0, lastClickedMon.offsetHeight));
         }
-        console.log(lastClickedMon.offsetHeight);
+        // console.log(lastClickedMon.offsetHeight);
     }
-    p.draw = function() {
+    p.draw = function () {
         p.background(bgcolor);
 
         //Check if it's raining or sunny
@@ -65,6 +67,101 @@ function Rain(p, x, y) {
                 this.r = 0;
                 this.opacity = 200;
             }
+        }
+    }
+}
+let setSnow = (p) => {
+    p.setup = function (i) {
+        p.createCanvas(lastClickedMon.offsetWidth, lastClickedMon.offsetHeight);
+        p.frameRate(60);
+        p.fill(255);
+        p.noStroke();
+    }
+    p.draw = function () {
+        p.background('#e5e5e5');
+
+        let t = p.frameCount / 180;
+
+        // create a random number of snowflakes each frame
+        for (let i = 0; i < p.random(5); i++) {
+            snowflakes.push(new snowflake(p)); // append snowflake object
+        }
+        // loop through snowflakes with a for..of loop
+        for (let flake of snowflakes) {
+            flake.update(t); // update snowflake position
+            flake.display(); // draw snowflake
+        }
+    }
+}
+function snowflake(p) {
+    // initialize coordinates
+    this.posX = 0;
+    this.posY = p.random(0, 0);
+    this.initialangle = p.random(0, 2 * p.PI * 3);
+    this.size = p.random(1, 6);
+
+    // radius of snowflake spiral
+    // chosen so the snowflakes are uniformly spread out in area
+    this.radius = p.sqrt(p.random(p.pow(lastClickedMon.offsetWidth / 2, 2)));
+
+    this.update = function (time) {
+        // x position follows a circle
+        let w = 0.6; // angular speed
+        let angle = w * time + this.initialangle;
+        this.posX = lastClickedMon.offsetWidth / 2 + this.radius * p.sin(angle);
+
+        // different size snowflakes fall at slightly different y speeds
+        this.posY += p.pow(this.size, 0.5);
+
+        // delete snowflake if past end of screen
+        if (this.posY > lastClickedMon.offsetHeight) {
+            let index = snowflakes.indexOf(this);
+            snowflakes.splice(index, 1);
+        }
+    };
+
+    this.display = function () {
+        p.ellipse(this.posX, this.posY, this.size);
+    };
+}
+let setCloud = (p) => {
+    p.setup = function (i) {
+        p.createCanvas(lastClickedMon.offsetWidth, lastClickedMon.offsetHeight);
+        p.frameRate(60);
+        for (var i = 0; i < 20; i++) {
+            bubbles[i] = new Bubble(p);
+        }
+    }
+    p.draw = function () {
+        p.background('#e5e5e5');
+        for (var i = 0; i < bubbles.length; i++) {
+            bubbles[i].move();
+            bubbles[i].display();
+        }
+    }
+}
+function Bubble(p) {
+    this.x = p.random(0, lastClickedMon.offsetWidth);
+    this.y = p.random(0, lastClickedMon.offsetHeight);
+
+    this.display = function () {
+        p.stroke(255);
+        p.strokeWeight(1);
+        p.fill(255);
+        p.ellipse(this.x, this.y, 35, 35);
+        p.ellipse(this.x + 10, this.y + 10, 35, 35);
+        p.ellipse(this.x + 30, this.y + 10, 35, 35);
+        p.ellipse(this.x + 30, this.y - 10, 35, 35);
+        p.ellipse(this.x + 20, this.y - 10, 35, 35);
+        p.ellipse(this.x + 40, this.y, 35, 35);
+    }
+
+    this.move = function () {
+        this.x = this.x += 1;
+        this.y = this.y + p.random(-1, 1);
+
+        if (this.x >= lastClickedMon.offsetWidth) {
+            this.x = 0;
         }
     }
 }

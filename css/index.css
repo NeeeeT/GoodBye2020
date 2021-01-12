@@ -43,7 +43,7 @@ body{
     flex-direction: row;
     width: 100%;
     height: 150px;
-    z-index: 110;
+    z-index: 900;
     /* background-color: #e5e5e5; */
 }
 /* .logo .bottom{
@@ -66,7 +66,7 @@ body{
 }
 .wrap .sun img{
     width: 60px;
-    height: 60px;
+    height: 70px;
 }
 .wrap .sun p{
     color: #1a1a1a;
@@ -106,6 +106,9 @@ body{
     flex-direction: row;
     /* justify-content: space-evenly; */
     align-items: center;
+}
+.choose-weather a{
+    cursor: default;
 }
 .right-side-box a{
     text-decoration: none;
@@ -152,7 +155,7 @@ input:checked + .slider{
     background-color: #333;
 }
 input:focus + .slider{
-    box-shadow: 0 0 1px #2196F3;
+    /* box-shadow: 0 0 1px #2196F3; */
 }
 input:checked + .slider::before{
     transform: translateX(26px);
@@ -168,32 +171,42 @@ input:checked + .slider::before{
 .preface{
     width: 100%;
 
-    position: absolute;
+    /* position: absolute;
+    top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(0%, -50%); */
+
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+
+
     display: flex;
     flex-direction: column;
     /* justify-content: space-between; */
     align-items: center;
-    margin-top: 50vh;
+    /* margin-top: 50vh; */
     z-index: 100;
+    text-align: center;
 }
 .preface h1{
     font-size: 30px;
     color: #1a1a1a;
 }
-/* .preface blockquote::before{ */
-#typewriter::before{
+.preface blockquote::before{
+/* #typewriter::before{ */
     content: '';
     border-left: 2px solid #1a1a1a;
     margin-right: 10px;
 }
-/* .preface blockquote{ */
-#typewriter{
+.preface blockquote{
+/* #typewriter{ */
     width: 80%;
     font-size: 20px;
     line-height: 40px;
     color: #1a1a1a;
     margin: 25px 0 25px 0;
-    text-align: center;
+    /* text-align: center; */
 }
 .preface img{
     width: 15px;
@@ -209,6 +222,7 @@ input:checked + .slider::before{
 }
 .content-imgs{
     width: 100%;
+    height: 0;
     margin-top: -73px;
 }
 .TrashCan{
@@ -287,6 +301,13 @@ input:checked + .slider::before{
     text-align: left;
     /* margin: 0 auto; */
 }
+.TrashCan{
+    position: relative;
+}
+.goodbye-logo{
+    /* margin-top: 50px; */
+    margin: 50px auto;
+}
 
 
 #defaultCanvas0{
@@ -295,6 +316,43 @@ input:checked + .slider::before{
     left: 0;
     width: 100%;
     z-index: 99;
+}
+.choose-weather-bar{
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
+    
+    /* text-align: center; */
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 100%;
+    
+    transition: .7s;
+    /* transition-timing-function: linear; */
+
+    z-index: 30;
+    background-color: #e5e5e5;
+    opacity: 0.8;
+    flex-wrap: wrap;
+}
+.choose-weather-bar div{
+    position: fixed;
+    top: 30%;
+    width: 0%;
+    opacity: 1;
+}
+.choose-weather-bar a{
+    opacity: 1;
+}
+.choose-weather-bar img{
+    opacity: 1;
+    width: 65%;
+}
+.choose-weather-bar img:hover{
+    /* opacity: 1; */
+    /* width: 80%; */
 }
 .side-bar{
     position: fixed;
@@ -310,14 +368,14 @@ input:checked + .slider::before{
 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
 
     opacity: 0;
     transition: 0.5s;
 }
 .side-bar p{
     font-family: 'Baskerville';
-    font-size: 100px;
+    font-size: 110px;
     color: #e5e5e5;
 }
 .side-bar-month-container{
@@ -326,15 +384,20 @@ input:checked + .slider::before{
 .side-bar-month-container div{
     color: #e5e5e5;
     font-size: 35px;
+    cursor: pointer;
+}
+.side-bar-month-container div:hover{
+    background-color: #F8CA33;
+    color: #333;
 }
 .side-bar-toggle{
     position: fixed;
     top: 50%;
-    font-size: 20px;
+    font-size: 15px;
     transform: rotate(-90deg);
     /* transform: translateZ(50%); */
     letter-spacing: 18px;
-    line-height: 44px;
+    line-height: 30px;
     color: #333;
     z-index: 110;
     cursor: pointer;

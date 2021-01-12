@@ -16,8 +16,8 @@
     <div class="wrap" id='wrap'>
         <div class="main-header">
             <div class="sun">
-                <img src="./images/sun.png" alt="">
-                <p>天氣晴</p>
+                <img id='TopLeftIcon' src="./images/wSun.png" alt="">
+                <!-- <p>天氣晴</p> -->
             </div>
             <div class="logo">
                 <div class="top">
@@ -27,7 +27,7 @@
                     <div class="right-side-box">
                         <div class="choose-weather">
                             <a href="#">選擇天氣</a>
-                            <label class="switch">
+                            <label class="switch" id='choose-weather-slider'>
                                 <input type="checkbox">
                                 <span class="slider round"></span>
                             </label>
@@ -42,15 +42,16 @@
         </div>
         <div class="preface">
             <h1>Welcome</h1>
-            <div>
-                <blockquote class='line-1 anim-typewriter' id='typewriter'>2020年的地球，有太多身不由己的遺憾，你的2020是否也倒霉不斷？</blockquote>
-            </div>
+            <blockquote class='line-1 anim-typewriter' id='typewriter'>2020年的地球，有太多身不由己的遺憾，你的2020是否也倒霉不斷？</blockquote>
             <img id='arrow' src="./images/arrow.png" alt="">
         </div>
         <div class="content-img" style="opacity: 0;">
             <img class='content-imgs' src="./images/main.png" alt="">
         </div>
         <div class="TrashCan">
+            <div class="goodbye-logo">
+                <img src="./images/goodbye.png" alt="">
+            </div>
             <div class='month' id="1th">
                 <div class="txt">GoodBye January</div>
             </div>
@@ -99,26 +100,35 @@
             <p>Choose A Month</p>
         </div>
         <div class="side-bar-month-container">
-            <div class="side-bar-month">JANUARY</div>
-            <div class="side-bar-month">FEBRUARY</div>
-            <div class="side-bar-month">MARCH</div>
-            <div class="side-bar-month">ARPIL</div>
-            <div class="side-bar-month">MAY</div>
-            <div class="side-bar-month">JUNE</div>
-            <div class="side-bar-month">JULY</div>
-            <div class="side-bar-month">AUGUST</div>
-            <div class="side-bar-month">SEPTEMBER</div>
-            <div class="side-bar-month">OCTOBER</div>
-            <div class="side-bar-month">NOVEMBER</div>
-            <div class="side-bar-month">DECEMBER</div>
+            <div class="side-bar-month" id='1'>JANUARY</div>
+            <div class="side-bar-month" id='2'>FEBRUARY</div>
+            <div class="side-bar-month" id='3'>MARCH</div>
+            <div class="side-bar-month" id='4'>APRIL</div>
+            <div class="side-bar-month" id='5'>MAY</div>
+            <div class="side-bar-month" id='6'>JUNE</div>
+            <div class="side-bar-month" id='7'>JULY</div>
+            <div class="side-bar-month" id='8'>AUGUST</div>
+            <div class="side-bar-month" id='9'>SEPTEMBER</div>
+            <div class="side-bar-month" id='10'>OCTOBER</div>
+            <div class="side-bar-month" id='11'>NOVEMBER</div>
+            <div class="side-bar-month" id='12'>DECEMBER</div>
         </div>
+    </div>
+    <div class="choose-weather-bar">
+        <div class="" style="width: 60%; font-size: 23px;font-family: 'Noto Sans TC';font-weight: 500;text-align: center;">
+            <img src="./images/chooseTxt.png" alt="">
+        </div>
+        <a href="#" id='weather1th'><img src="./images/wSun.png" alt=""></a>
+        <a href="#" id='weather2th'><img src="./images/wGloomy.png" alt=""></a>
+        <a href="#" id='weather3th'><img src="./images/wRain.png" alt=""></a>
+        <a href="#" id='weather4th'><img src="./images/wSnow.png" alt=""></a>
     </div>
     <a class="side-bar-toggle">選擇月份</a>
 </body>
 <script>
     window.onload = () => {
         localStorage.setItem('currentStep', JSON.stringify({ count: '1' }));
-
+        localStorage.setItem('currentWeather', JSON.stringify({ count: '1' }));
 
         InsertEleAfterEle = (newNode, referenceNode) => {
             referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -131,8 +141,8 @@
             let trashCan = document.getElementsByClassName('TrashCan')[0];
             let otherMonBlock = document.getElementsByClassName('month-content');
 
-            for(let i = 0; i < otherMonBlock.length; i++){
-                    trashCan.removeChild(otherMonBlock[i]);
+            for (let i = 0; i < otherMonBlock.length; i++) {
+                trashCan.removeChild(otherMonBlock[i]);
             }
 
             divBlock.style.width = '100%';
@@ -150,14 +160,38 @@
                     </div>
                     `;
             }
-            let theMon = document.getElementsByClassName('month'+String(mon))[0];
+            let theMon = document.getElementsByClassName('month' + String(mon))[0];
             lastClickedMon = theMon;
 
-            if(p5Canvas.length >= 1)
+            if (p5Canvas.length >= 1)
                 p5Canvas[0].remove();
             p5Canvas = [];
 
-            let newCanvas = new p5(setRain, theMon);
+            let setWeather = null;
+            let newCanvas = null;
+            let currentWeather = JSON.parse(localStorage.getItem('currentWeather'));
+
+            // console.log(currentWeather.count);
+
+            switch (currentWeather.count) {
+                case '1':
+                    newCanvas = new p5(setWeather, theMon);
+                    break;
+                case '2':
+                    newCanvas = new p5(setCloud, theMon);
+                    break;
+                case '3':
+                    newCanvas = new p5(setRain, theMon);
+                    break;
+                case '4':
+                    newCanvas = new p5(setSnow, theMon);
+                    break;
+                default:
+                    newCanvas = new p5(setSnow, theMon);
+                    break;
+            }
+
+            // newCanvas = new p5(setWeather, theMon);
             p5Canvas.push(newCanvas);
         }
         ChangeTypewriterText = () => {
@@ -167,7 +201,7 @@
             if (currentStep.count === '1') {
                 _typewriter.style.display = 'none';
                 setTimeout(() => {
-                    _typewriter.innerText = '這些爛事是否像瘟神一樣困擾你？那就交給2020爛事垃圾桶幫你封存!';
+                    _typewriter.innerText = '這些爛事是否像瘟神一樣困擾著你？那就交給2020爛事垃圾桶幫你封存吧   !';
                     _typewriter.style.display = 'block';
                     localStorage.setItem('currentStep', JSON.stringify({ count: '2' }));
                 }, 10);
@@ -176,12 +210,14 @@
                 let wholeWrap = document.getElementById('wrap');
                 let logoBottom = document.getElementById('logo-bottom')
                 let backgroundImg = document.getElementsByClassName('content-img')[0];
+                let backgroundImgs = document.getElementsByClassName('content-imgs')[0];
                 let trashCan = document.getElementsByClassName('TrashCan')[0];
                 let monthClick = document.getElementsByClassName('month');
                 // let monthContentBlock = document.getElementsByClassName('month-content');
 
                 wholeWrap.removeChild(document.getElementsByClassName('preface')[0]);
                 backgroundImg.style.opacity = 1;
+                backgroundImgs.style.height = '100%';
                 trashCan.style.visibility = 'visible';
                 _typewriter.style.animationPlayState = 'paused';
                 localStorage.setItem('currentStep', JSON.stringify({ count: '-1' }));
@@ -204,24 +240,107 @@
         })
         let sideBarBtn = document.getElementsByClassName('side-bar-toggle')[0];
         let sideBarToggle = false;
-        sideBarBtn.addEventListener('click', () => {
+        ToggleSideBarMonth = () => {
             let sideBar = document.getElementsByClassName('side-bar')[0];
             sideBarToggle = !sideBarToggle;
-            if(sideBarToggle){
+            if (sideBarToggle) {
                 sideBar.style.opacity = 1;
                 sideBar.style.zIndex = 200;
                 sideBarBtn.style.zIndex = 210;
                 sideBarBtn.innerText = '返回首頁';
                 sideBarBtn.style.color = "#e5e5e5";
             }
-            else{
+            else {
                 sideBar.style.opacity = 0;
                 sideBar.style.zIndex = 0;
                 sideBarBtn.style.zIndex = 110;
                 sideBarBtn.innerText = '選擇月份';
                 sideBarBtn.style.color = "#333";
             }
+        }
+        sideBarBtn.addEventListener('click', () => {
+            // let sideBar = document.getElementsByClassName('side-bar')[0];
+            // sideBarToggle = !sideBarToggle;
+            // if (sideBarToggle) {
+            //     sideBar.style.opacity = 1;
+            //     sideBar.style.zIndex = 200;
+            //     sideBarBtn.style.zIndex = 210;
+            //     sideBarBtn.innerText = '返回首頁';
+            //     sideBarBtn.style.color = "#e5e5e5";
+            // }
+            // else {
+            //     sideBar.style.opacity = 0;
+            //     sideBar.style.zIndex = 0;
+            //     sideBarBtn.style.zIndex = 110;
+            //     sideBarBtn.innerText = '選擇月份';
+            //     sideBarBtn.style.color = "#333";
+            // }
+            ToggleSideBarMonth();
         })
+        let weatherSlider = document.getElementsByClassName('slider round')[0];
+        let weatherBar = document.getElementsByClassName('choose-weather-bar')[0];
+        let weatherToggle = false;
+        weatherSlider.addEventListener('click', () => {
+            weatherToggle = !weatherToggle;
+            if (weatherToggle) {
+                // sideBar.style.opacity = 1;
+                weatherBar.style.zIndex = 200;
+                weatherBar.style.left = 0;
+
+            }
+            else {
+                weatherBar.style.zIndex = -1;
+                weatherBar.style.left = '100%';
+                // weatherBar.style.transition = '1.0s';
+            }
+        });
+        WeatherChoosed = () => {
+            weatherBar.style.zIndex = -1;
+            weatherBar.style.left = '100%';
+            currentWeather = JSON.parse(localStorage.getItem('currentWeather'));
+            let TopLeftIcon = document.getElementById('TopLeftIcon');
+            switch (currentWeather.count) {
+                case '1':
+                    TopLeftIcon.src = './images/wSun.png';
+                    break;
+                case '2':
+                    TopLeftIcon.src = './images/wGloomy.png';
+                    break;
+                case '3':
+                    TopLeftIcon.src = './images/wRain.png';
+                    break;
+                case '4':
+                    TopLeftIcon.src = './images/wSnow.png';
+                    break;
+                default:
+                    break;
+            }
+        }
+        document.getElementById('weather1th').addEventListener('click', () => {
+            localStorage.setItem('currentWeather', JSON.stringify({ count: '1' }));
+            WeatherChoosed();
+        });
+        document.getElementById('weather2th').addEventListener('click', () => {
+            localStorage.setItem('currentWeather', JSON.stringify({ count: '2' }));
+            WeatherChoosed();
+        });
+        document.getElementById('weather3th').addEventListener('click', () => {
+            localStorage.setItem('currentWeather', JSON.stringify({ count: '3' }));
+            WeatherChoosed();
+        });
+        document.getElementById('weather4th').addEventListener('click', () => {
+            localStorage.setItem('currentWeather', JSON.stringify({ count: '4' }));
+            WeatherChoosed();
+        });
+        let sidebarMonth = document.getElementsByClassName('side-bar-month');
+        for(let i = 0; i < sidebarMonth.length; i++){
+            sidebarMonth[i].addEventListener('click', () => {
+                ToggleSideBarMonth();
+                ToggleMonthBadThings(i+1);
+                window.scrollBy(0,-9000);//set to initial
+                window.scrollBy(0, lastClickedMon.offsetHeight);
+            })
+        }
     }
 </script>
 <script>
