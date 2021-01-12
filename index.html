@@ -28,7 +28,7 @@
                         <div class="choose-weather">
                             <a href="#">選擇天氣</a>
                             <label class="switch" id='choose-weather-slider'>
-                                <input type="checkbox">
+                                <input id='weather-check-box' type="checkbox">
                                 <span class="slider round"></span>
                             </label>
                         </div>
@@ -147,7 +147,8 @@
 
             divBlock.style.width = '100%';
             divBlock.style.height = 'auto';
-            divBlock.style.position = 'relative'
+            divBlock.style.position = 'relative';
+            divBlock.style.margin = '60px 0 60px 0';
             divBlock.className = 'month' + String(mon) + ' month-content';
             divBlock.id = String(mon);
             divBlock.style.textAlign = 'right';
@@ -281,7 +282,7 @@
         let weatherBar = document.getElementsByClassName('choose-weather-bar')[0];
         let weatherToggle = false;
         weatherSlider.addEventListener('click', () => {
-            weatherToggle = !weatherToggle;
+            weatherToggle = !document.getElementById('weather-check-box').checked;
             if (weatherToggle) {
                 // sideBar.style.opacity = 1;
                 weatherBar.style.zIndex = 200;
@@ -315,6 +316,7 @@
                 default:
                     break;
             }
+            document.getElementById('weather-check-box').checked = false;
         }
         document.getElementById('weather1th').addEventListener('click', () => {
             localStorage.setItem('currentWeather', JSON.stringify({ count: '1' }));
