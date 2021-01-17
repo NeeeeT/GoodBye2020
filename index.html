@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2020 爛事垃圾桶</title>
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/rwd.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
     <script src="./js/draw.js"></script>
     <script src="./js/data.js"></script>
@@ -28,12 +29,12 @@
                         <div class="choose-weather">
                             <a href="#">選擇天氣</a>
                             <label class="switch" id='choose-weather-slider'>
-                                <input type="checkbox">
+                                <input id='weather-check-box' type="checkbox">
                                 <span class="slider round"></span>
                             </label>
                         </div>
                         <div class='author'>
-                            <a href="./author.html">作者介紹</a>
+                            <a href="./author.html">| 作者介紹 |</a>
                         </div>
                     </div>
                 </div>
@@ -91,6 +92,9 @@
             <div class='month' id="none">
                 <div class="txt">GoodBye 2020</div>
             </div>
+            <div class="trash-can-closing">
+                <img class='' src="./images/trash-can-closing.gif" alt="">
+            </div>
         </div>
     </div>
     <div class="side-bar">
@@ -115,8 +119,8 @@
         </div>
     </div>
     <div class="choose-weather-bar">
-        <div class="" style="width: 60%; font-size: 23px;font-family: 'Noto Sans TC';font-weight: 500;text-align: center;">
-            <img src="./images/chooseTxt.png" alt="">
+        <div class="" style="width: 60%;text-align: center;">
+            <img class='dont-show-in-mobile' src="./images/chooseTxt.png" alt="">
         </div>
         <a href="#" id='weather1th'><img src="./images/wSun.png" alt=""></a>
         <a href="#" id='weather2th'><img src="./images/wGloomy.png" alt=""></a>
@@ -147,13 +151,24 @@
 
             divBlock.style.width = '100%';
             divBlock.style.height = 'auto';
-            divBlock.style.position = 'relative'
+            divBlock.style.position = 'relative';
+            divBlock.style.margin = '60px 0 60px 0';
             divBlock.className = 'month' + String(mon) + ' month-content';
             divBlock.id = String(mon);
             divBlock.style.textAlign = 'right';
 
             InsertEleAfterEle(divBlock, monthContent);
+
+            /* 特別處理 special-one.png */
+            let specialDone = false;
             for (let i = 0; i < months[mon].length; i++) {
+                /* 特別處理 */
+                if (mon == 12 && !specialDone) {
+                    divBlock.innerHTML += `
+                        <img id='special-one' src='./images/special-one.png' width='500px' style='z-index: 110;'>
+                    `
+                    specialDone = true;
+                }
                 divBlock.innerHTML += `
                     <div class='trashImg' style="background-image: url('./images/trash${Math.floor(Math.random() * 5 + 1)}.png');">
                         <div class='trashText'>${months[mon][i][1]}<br><br>——${months[mon][i][0]}</div>
@@ -175,7 +190,7 @@
 
             switch (currentWeather.count) {
                 case '1':
-                    newCanvas = new p5(setWeather, theMon);
+                    newCanvas = new p5(setSun, theMon);
                     break;
                 case '2':
                     newCanvas = new p5(setCloud, theMon);
@@ -259,29 +274,13 @@
             }
         }
         sideBarBtn.addEventListener('click', () => {
-            // let sideBar = document.getElementsByClassName('side-bar')[0];
-            // sideBarToggle = !sideBarToggle;
-            // if (sideBarToggle) {
-            //     sideBar.style.opacity = 1;
-            //     sideBar.style.zIndex = 200;
-            //     sideBarBtn.style.zIndex = 210;
-            //     sideBarBtn.innerText = '返回首頁';
-            //     sideBarBtn.style.color = "#e5e5e5";
-            // }
-            // else {
-            //     sideBar.style.opacity = 0;
-            //     sideBar.style.zIndex = 0;
-            //     sideBarBtn.style.zIndex = 110;
-            //     sideBarBtn.innerText = '選擇月份';
-            //     sideBarBtn.style.color = "#333";
-            // }
             ToggleSideBarMonth();
         })
         let weatherSlider = document.getElementsByClassName('slider round')[0];
         let weatherBar = document.getElementsByClassName('choose-weather-bar')[0];
         let weatherToggle = false;
         weatherSlider.addEventListener('click', () => {
-            weatherToggle = !weatherToggle;
+            weatherToggle = !document.getElementById('weather-check-box').checked;
             if (weatherToggle) {
                 // sideBar.style.opacity = 1;
                 weatherBar.style.zIndex = 200;
@@ -315,6 +314,7 @@
                 default:
                     break;
             }
+            document.getElementById('weather-check-box').checked = false;
         }
         document.getElementById('weather1th').addEventListener('click', () => {
             localStorage.setItem('currentWeather', JSON.stringify({ count: '1' }));
@@ -333,11 +333,11 @@
             WeatherChoosed();
         });
         let sidebarMonth = document.getElementsByClassName('side-bar-month');
-        for(let i = 0; i < sidebarMonth.length; i++){
+        for (let i = 0; i < sidebarMonth.length; i++) {
             sidebarMonth[i].addEventListener('click', () => {
                 ToggleSideBarMonth();
-                ToggleMonthBadThings(i+1);
-                window.scrollBy(0,-9000);//set to initial
+                ToggleMonthBadThings(i + 1);
+                window.scrollBy(0, -9000);//set to initial
                 window.scrollBy(0, lastClickedMon.offsetHeight);
             })
         }

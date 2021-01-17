@@ -1,0 +1,95 @@
+@media (max-width: 600px) {
+    .month .txt{
+        font-size: 12px;
+    }
+    .side-bar-toggle{
+        font-size: 5px;
+        letter-spacing: 15px;
+        line-height: 15px;
+        margin-left: -8vw;
+    }
+    .content-img{
+        display: flex;
+        justify-content: center;
+        align-self: center;
+    }
+    .content-imgs{
+        margin-top: 0;
+    }
+    .goodbye-logo{
+        transform: scale(0.7);
+    }
+    .logo .top{
+        border-bottom: none;
+    }
+    .logo .top::after{
+        content: '';
+        width: 100vw;
+        position: absolute;
+        border-bottom: 2px solid #1a1a1a;
+        top: 69px;
+        /* overflow: hidden; */
+    }
+    .main-header{
+        display: flex;
+        justify-content: right;
+        width: 100%;
+    }
+    .right-side-box{
+        position: absolute;
+        width: 100vw;
+        margin-top: 150px;
+        transform: scale(0.8);
+        /* margin-left: -25px; */
+    }
+    .main-header .sun{
+        width: 20%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-bottom: none;
+        /* border-right: 1px solid #000; */
+    }
+    .main-header .logo{
+        display: inline-block;
+        width: 20%;
+    }
+    #TopLeftIcon{
+        transform: scale(0.75);
+    }
+    .header-img{
+        position: absolute;
+        width: 100%;
+        top: 15%;
+        left: 145%;
+        transform: scale(0.75);
+    }
+    .trashImg{
+        width: 100%;
+    }
+    .trashText{
+        font-size: 12px;
+        line-height: 20px;
+    }
+    .choose-weather-bar img{
+        display: inline-block;
+        /* width: 100%; */
+        transform: scale(0.8);
+    }
+    .dont-show-in-mobile{
+        height: 0;
+    }
+    .preface h1{
+        font-size: 16px;
+    }
+    .preface blockquote{
+        font-size: 4px;
+        line-height: 20px;
+    }
+    .side-bar p{
+        font-size: 30px;
+    }
+    .side-bar-month-container div{
+        font-size: 20px;
+    }
+}

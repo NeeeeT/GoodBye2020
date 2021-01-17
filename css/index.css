@@ -33,7 +33,6 @@ body{
     overflow-x: hidden;
 }
 .wrap{
-    /* position: fixed; */
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -62,7 +61,6 @@ body{
 }
 .wrap .logo{
     width: 100%;
-    /* text-align: center; */
 }
 .wrap .sun img{
     width: 60px;
@@ -223,7 +221,7 @@ input:checked + .slider::before{
 .content-imgs{
     width: 100%;
     height: 0;
-    margin-top: -73px;
+    margin-top: -77px;
 }
 .TrashCan{
     visibility: hidden;
@@ -293,19 +291,17 @@ input:checked + .slider::before{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* margin: auto; */
     z-index: 100;
 
     font-family: NingXuTi;
     font-size: 16px;
     text-align: left;
-    /* margin: 0 auto; */
+    line-height: 24px;
 }
 .TrashCan{
     position: relative;
 }
 .goodbye-logo{
-    /* margin-top: 50px; */
     margin: 50px auto;
 }
 
@@ -320,7 +316,7 @@ input:checked + .slider::before{
 .choose-weather-bar{
     display: flex;
     justify-content: space-around;
-    align-items:center;
+    align-items: center;
     
     /* text-align: center; */
     position: fixed;
@@ -335,7 +331,7 @@ input:checked + .slider::before{
     z-index: 30;
     background-color: #e5e5e5;
     opacity: 0.8;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 .choose-weather-bar div{
     position: fixed;
@@ -349,10 +345,6 @@ input:checked + .slider::before{
 .choose-weather-bar img{
     opacity: 1;
     width: 65%;
-}
-.choose-weather-bar img:hover{
-    /* opacity: 1; */
-    /* width: 80%; */
 }
 .side-bar{
     position: fixed;
@@ -430,20 +422,24 @@ input:checked + .slider::before{
     display: inline;
     /* display: flex; */
 }
-/* Animation below */
+#special-one{
+    width: 40%;
+    z-index: 500;
+}
+.trash-can-closing{
+    width: 100;
+    text-emphasis: center;
+    display: flex;
+    justify-content: center;
+    transform: scale(0.5);
+}
 .anim-typewriter{
     animation: typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor 400ms steps(44) infinite normal;
-    /* animation: typewriter 5s steps(100) 1s normal both; */
 } 
 @keyframes typewriter{
   from{width: 0;}
   to{width: 100%;}
 }
-/* @keyframes blinkTextCursor{
-    from{border-right-color: #1a1a1a;}
-    to{border-right-color: transparent;}
-} */
-
 #arrow{
     animation-iteration-count: infinite;
     animation-name: blink;

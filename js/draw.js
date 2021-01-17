@@ -1,6 +1,7 @@
 var p5Canvas = [];
 var snowflakes = [];
 var rain = [];
+var sun = 400;
 var bubbles = [];
 var rainingNow = true;
 var bgcolor = "#e5e5e5";
@@ -163,5 +164,43 @@ function Bubble(p) {
         if (this.x >= lastClickedMon.offsetWidth) {
             this.x = 0;
         }
+    }
+}
+let setSun = (p) => {
+    SWH1 = p.random(5, 10);
+    SWH2 = p.random(6, 10);
+    SWH3 = p.random(15, 20);
+    RDS = p.random(280, 650);
+
+    p.setup = function (i) {
+        p.createCanvas(lastClickedMon.offsetWidth, lastClickedMon.offsetHeight);
+    }
+    p.draw = function () {
+        p.noStroke();
+        // p.background(229,229,229, 10);
+        p.background('#e5e5e5');
+        
+        // stars in the universe
+        p.fill(255, 200, 0);
+        p.ellipse(p.mouseX*1.1, p.mouseY*1.8, SWH1, SWH1);
+        p.ellipse(p.mouseX*1.3, p.mouseY*2.5, SWH2, SWH2);
+        p.ellipse(p.mouseX*2.3, p.mouseY*1.5, SWH3, SWH3);
+        p.ellipse(p.mouseX/1.1, p.mouseY/1.8, SWH1, SWH1);
+        p.ellipse(p.mouseX/1.3, p.mouseY/2.5, SWH2, SWH2);
+        p.ellipse(p.mouseX/2.3, p.mouseY/1.5, SWH3, SWH3);
+        
+        //glow
+        p.fill(200, 130, 10, 20);
+        p.ellipse(0, 0, (p.frameCount % 500)*2, (p.frameCount % 500)*2);
+        p.ellipse(0, 0, (p.frameCount % 500)*4, (p.frameCount % 500)*4);
+        p.ellipse(0, 0, (p.frameCount % 500)*8, (p.frameCount % 500)*8);
+        p.ellipse(0, 0, (p.frameCount % 500)*16, (p.frameCount % 500)*16);
+        p.ellipse(0, 0, (p.frameCount % 500)*24, (p.frameCount % 500)*24);
+        
+        //sun
+        p.fill(255, 80, 0, 20);
+        p.ellipse(0, 0, RDS, RDS);
+        // p.fill(250, 200, 0);
+        // p.ellipse(5, -11, RDS - 20, RDS - 30);
     }
 }
