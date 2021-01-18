@@ -21,15 +21,16 @@
     }
     .logo .top{
         border-bottom: none;
-        border-right: 2px solid #1a1a1a;
+        border-top: none;
+        border-right: 1px solid #1a1a1a;
         background-color: #e5e5e5;
     }
     .logo .top::after{
         content: '';
         width: 100vw;
         position: absolute;
-        border-bottom: 2px solid #1a1a1a;
-        top: 73px;
+        border-bottom: 1px solid #1a1a1a;
+        top: 74px;
         /* overflow: hidden; */
     }
     .main-header{
@@ -51,6 +52,7 @@
         top: 0;
         left: 0;
         border-bottom: none;
+        border-top: none;
         /* border-right: 1px solid #000; */
     }
     .main-header .logo{
