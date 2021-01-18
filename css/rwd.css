@@ -21,19 +21,22 @@
     }
     .logo .top{
         border-bottom: none;
+        border-right: 2px solid #1a1a1a;
+        background-color: #e5e5e5;
     }
     .logo .top::after{
         content: '';
         width: 100vw;
         position: absolute;
         border-bottom: 2px solid #1a1a1a;
-        top: 69px;
+        top: 73px;
         /* overflow: hidden; */
     }
     .main-header{
         display: flex;
         justify-content: right;
         width: 100%;
+        background-color: #e5e5e5;
     }
     .right-side-box{
         position: absolute;
@@ -107,5 +110,13 @@
     .tag-box p{
         display: inline-flex;
         font-size: 12px;
+    }
+    #TopLeftIcon{
+        z-index: 1;
+    }
+    .author-body{
+        /* background-image: url('');
+        background-position: center;
+        background-size: contain; */
     }
 }

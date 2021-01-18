@@ -12,22 +12,22 @@
     <div class="wrap" id='wrap'>
         <div class="main-header">
             <div class="sun">
-                <img src="./images/sun.png" alt="">
-                <p>天氣晴</p>
+                <img id='TopLeftIcon' src="./images/wSun.png" alt="">
+                <!-- <p>天氣晴</p> -->
             </div>
             <div class="logo">
-                <div class="top" style="background-color: #e5e5e5;">
+                <div class="top" style="">
                     <div class="header-img">
                         <img src="./images/mainLogo.png" alt="">
                     </div>
                     <div class="right-side-box">
-                        <div class="choose-weather">
+                        <!-- <div class="choose-weather">
                             <a href="#">選擇天氣</a>
                             <label class="switch">
                                 <input type="checkbox">
                                 <span class="slider round"></span>
                             </label>
-                        </div>
+                        </div> -->
                         <div class='author'>
                             <a href="./index.html">回首頁</a>
                         </div>
@@ -106,4 +106,25 @@
         </div>
     </div>
 </body>
+<script>
+    let currentWeather = JSON.parse(localStorage.getItem('currentWeather'));
+    let TopLeftIcon = document.getElementById('TopLeftIcon');
+            switch (currentWeather.count) {
+                case '1':
+                    TopLeftIcon.src = './images/wSun.png';
+                    break;
+                case '2':
+                    TopLeftIcon.src = './images/wGloomy.png';
+                    break;
+                case '3':
+                    TopLeftIcon.src = './images/wRain.png';
+                    break;
+                case '4':
+                    TopLeftIcon.src = './images/wSnow.png';
+                    break;
+                default:
+                    TopLeftIcon.src = './images/wSun.png';
+                    break;
+            }
+</script>
 </html>

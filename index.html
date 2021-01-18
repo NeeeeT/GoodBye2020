@@ -17,7 +17,7 @@
     <div class="wrap" id='wrap'>
         <div class="main-header">
             <div class="sun">
-                <img id='TopLeftIcon' src="./images/wSun.png" alt="">
+                <img id='TopLeftIcon' src="" alt="">
                 <!-- <p>天氣晴</p> -->
             </div>
             <div class="logo">
@@ -132,7 +132,7 @@
 <script>
     window.onload = () => {
         localStorage.setItem('currentStep', JSON.stringify({ count: '1' }));
-        localStorage.setItem('currentWeather', JSON.stringify({ count: '1' }));
+        // localStorage.setItem('currentWeather', JSON.stringify({ count: '1' }));
 
         InsertEleAfterEle = (newNode, referenceNode) => {
             referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -202,7 +202,7 @@
                     newCanvas = new p5(setSnow, theMon);
                     break;
                 default:
-                    newCanvas = new p5(setSnow, theMon);
+                    newCanvas = new p5(setSun, theMon);
                     break;
             }
 
@@ -312,6 +312,7 @@
                     TopLeftIcon.src = './images/wSnow.png';
                     break;
                 default:
+                    TopLeftIcon.src = './images/wSun.png';
                     break;
             }
             document.getElementById('weather-check-box').checked = false;
@@ -341,6 +342,7 @@
                 window.scrollBy(0, lastClickedMon.offsetHeight);
             })
         }
+        WeatherChoosed();
     }
 </script>
 <script>
