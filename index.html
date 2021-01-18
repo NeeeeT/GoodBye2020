@@ -260,8 +260,8 @@
             sideBarToggle = !sideBarToggle;
             if (sideBarToggle) {
                 sideBar.style.opacity = 1;
-                sideBar.style.zIndex = 200;
-                sideBarBtn.style.zIndex = 210;
+                sideBar.style.zIndex = 900;
+                sideBarBtn.style.zIndex = 910;
                 sideBarBtn.innerText = '返回首頁';
                 sideBarBtn.style.color = "#e5e5e5";
             }
@@ -283,7 +283,7 @@
             weatherToggle = !document.getElementById('weather-check-box').checked;
             if (weatherToggle) {
                 // sideBar.style.opacity = 1;
-                weatherBar.style.zIndex = 200;
+                weatherBar.style.zIndex = 900;
                 weatherBar.style.left = 0;
 
             }
