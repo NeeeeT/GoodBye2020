@@ -3,9 +3,9 @@
         font-size: 12px;
     }
     .side-bar-toggle{
-        font-size: 5px;
-        letter-spacing: 15px;
-        line-height: 15px;
+        font-size: 16px;
+        letter-spacing: 20px;
+        line-height: 25px;
         margin-left: -8vw;
     }
     .content-img{
@@ -38,7 +38,7 @@
     .right-side-box{
         position: absolute;
         width: 100vw;
-        margin-top: 150px;
+        margin-top: 75px;
         transform: scale(0.8);
         /* margin-left: -25px; */
     }
@@ -91,5 +91,21 @@
     }
     .side-bar-month-container div{
         font-size: 20px;
+    }
+
+    /*Author page*/
+    .profile img{
+        width: 30%;
+    }
+    .name img{
+        width: 100%;
+    }
+    .title{
+        width: 100%;
+        font-size: 14px;
+    }
+    .tag-box p{
+        display: inline-flex;
+        font-size: 12px;
     }
 }
