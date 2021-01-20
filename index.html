@@ -131,8 +131,31 @@
 </body>
 <script>
     window.onload = () => {
+        // var UID = {
+        //     _current: 0,
+        //     getNew: function () {
+        //         this._current++;
+        //         return this._current;
+        //     }
+        // };
+
+        // HTMLElement.prototype.pseudoStyle = function (element, prop, value) {
+        //     var _this = this;
+        //     var _sheetId = "pseudoStyles";
+        //     var _head = document.head || document.getElementsByTagName('head')[0];
+        //     var _sheet = document.getElementById(_sheetId) || document.createElement('style');
+        //     _sheet.id = _sheetId;
+        //     var className = "pseudoStyle" + UID.getNew();
+
+        //     _this.className += " " + className;
+
+        //     _sheet.innerHTML += " ." + className + ":" + element + "{" + prop + ":" + value + "}";
+        //     _head.appendChild(_sheet);
+        //     return this;
+        // };
+
+
         localStorage.setItem('currentStep', JSON.stringify({ count: '1' }));
-        // localStorage.setItem('currentWeather', JSON.stringify({ count: '1' }));
 
         InsertEleAfterEle = (newNode, referenceNode) => {
             referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -144,6 +167,8 @@
             let divBlock = document.createElement('div');
             let trashCan = document.getElementsByClassName('TrashCan')[0];
             let otherMonBlock = document.getElementsByClassName('month-content');
+            /* 特別處理 special-one.png */
+            let specialDone = false;
 
             for (let i = 0; i < otherMonBlock.length; i++) {
                 trashCan.removeChild(otherMonBlock[i]);
@@ -159,8 +184,6 @@
 
             InsertEleAfterEle(divBlock, monthContent);
 
-            /* 特別處理 special-one.png */
-            let specialDone = false;
             for (let i = 0; i < months[mon].length; i++) {
                 /* 特別處理 */
                 if (mon == 12 && !specialDone) {
@@ -169,8 +192,11 @@
                     `
                     specialDone = true;
                 }
+                let customImg = months[mon][i][2] ? 'custom-img' : '';
+                let cuatomImgHint = `./images/trash${Math.floor(Math.random() * 5 + 1)}.png`;
+                let cuatomImgCursor = months[mon][i][2] ? 'cursor: pointer' : '';
                 divBlock.innerHTML += `
-                    <div class='trashImg' style="background-image: url('./images/trash${Math.floor(Math.random() * 5 + 1)}.png');">
+                    <div id='${months[mon][i][2]}' class='trashImg ${customImg}' style="background-image: url(${cuatomImgHint}); ${cuatomImgCursor}">
                         <div class='trashText'>${months[mon][i][1]}<br><br>——${months[mon][i][0]}</div>
                     </div>
                     `;
@@ -185,8 +211,6 @@
             let setWeather = null;
             let newCanvas = null;
             let currentWeather = JSON.parse(localStorage.getItem('currentWeather'));
-
-            // console.log(currentWeather.count);
 
             switch (currentWeather.count) {
                 case '1':
@@ -205,19 +229,18 @@
                     newCanvas = new p5(setSun, theMon);
                     break;
             }
-
-            // newCanvas = new p5(setWeather, theMon);
             p5Canvas.push(newCanvas);
+            SetEveryTrashImage();
         }
         ChangeTypewriterText = () => {
-            let _typewriter = document.getElementById('typewriter');
+            let typewriter = document.getElementById('typewriter');
             let currentStep = JSON.parse(localStorage.getItem('currentStep'));
 
             if (currentStep.count === '1') {
-                _typewriter.style.display = 'none';
+                typewriter.style.display = 'none';
                 setTimeout(() => {
-                    _typewriter.innerText = '這些爛事是否像瘟神一樣困擾著你？那就交給2020爛事垃圾桶幫你封存吧   !';
-                    _typewriter.style.display = 'block';
+                    typewriter.innerText = '這些爛事是否像瘟神一樣困擾著你？那就交給2020爛事垃圾桶幫你封存吧   !';
+                    typewriter.style.display = 'block';
                     localStorage.setItem('currentStep', JSON.stringify({ count: '2' }));
                 }, 10);
             }
@@ -228,13 +251,12 @@
                 let backgroundImgs = document.getElementsByClassName('content-imgs')[0];
                 let trashCan = document.getElementsByClassName('TrashCan')[0];
                 let monthClick = document.getElementsByClassName('month');
-                // let monthContentBlock = document.getElementsByClassName('month-content');
 
                 wholeWrap.removeChild(document.getElementsByClassName('preface')[0]);
                 backgroundImg.style.opacity = 1;
                 backgroundImgs.style.height = '100%';
                 trashCan.style.visibility = 'visible';
-                _typewriter.style.animationPlayState = 'paused';
+                typewriter.style.animationPlayState = 'paused';
                 localStorage.setItem('currentStep', JSON.stringify({ count: '-1' }));
 
                 let months = document.getElementsByClassName('month');
@@ -282,7 +304,6 @@
         weatherSlider.addEventListener('click', () => {
             weatherToggle = !document.getElementById('weather-check-box').checked;
             if (weatherToggle) {
-                // sideBar.style.opacity = 1;
                 weatherBar.style.zIndex = 900;
                 weatherBar.style.left = 0;
 
@@ -290,7 +311,6 @@
             else {
                 weatherBar.style.zIndex = -1;
                 weatherBar.style.left = '100%';
-                // weatherBar.style.transition = '1.0s';
             }
         });
         WeatherChoosed = () => {
@@ -341,6 +361,35 @@
                 window.scrollBy(0, -9000);//set to initial
                 window.scrollBy(0, lastClickedMon.offsetHeight);
             })
+        }
+        SetEveryTrashImage = () => {
+            let trashImgData = document.getElementsByClassName('trashImg custom-img');
+            for (let i = 0; i < trashImgData.length; i++) {
+                trashImgData[i].addEventListener('click', () => {
+                    let urls = './images/attach/' + String(trashImgData[i].id);
+                    let originUrl = `./images/trash${Math.floor(Math.random() * 5 + 1)}.png`;
+
+                    if(trashImgData[i].style.opacity == '1'){
+                        trashImgData[i].style.backgroundImage = `url(${originUrl})`;
+                        trashImgData[i].style.backgroundSize = `contain`;
+                        trashImgData[i].style.opacity = 0.9;
+                        trashImgData[i].style.color = '#1a1a1a';
+                        trashImgData[i].style.transform = 'rotateY(-360deg)';
+
+                        trashImgData[i].pseudoStyle('before', 'opacity', 0.4);
+                    }
+                    else{
+                        trashImgData[i].style.backgroundImage = `url(${urls})`;
+                        trashImgData[i].style.backgroundSize = `contain`;
+                        trashImgData[i].style.opacity = 1;
+                        trashImgData[i].style.color = 'transparent';
+                        trashImgData[i].style.transform = 'rotateY(360deg)';
+    
+                        trashImgData[i].pseudoStyle('before', 'opacity', 0);
+                    }
+                    console.log(trashImgData[i].style.opacity);
+                })
+            }
         }
         WeatherChoosed();
     }
