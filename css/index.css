@@ -150,6 +150,9 @@ body{
 input:checked + .slider{
     background-color: #333;
 }
+input:focus + .slider{
+    /* box-shadow: 0 0 1px #2196F3; */
+}
 input:checked + .slider::before{
     transform: translateX(26px);
     background-color: #fff;
@@ -247,6 +250,9 @@ input:checked + .slider::before{
     font-weight: 600;
     font-size: 24px;
 }
+.month:hover{
+    /* background-color: #FFFEBD; */
+}
 .month::before, .month::after{
     content: '';
     width: 25%;
@@ -297,6 +303,7 @@ input:checked + .slider::before{
 }
 .custom-img{
     position: relative;
+    transition: .6s;
 }
 .custom-img::before{
     content: '';
@@ -309,7 +316,7 @@ input:checked + .slider::before{
     position: absolute;
     top: 50%;
     left: 50%;
-    opacity: 0.4;
+    opacity: 0.3;
     transform: translate(-50%, -50%);
 
     transition: .5s;

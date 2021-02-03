@@ -127,7 +127,7 @@
         <a href="#" id='weather3th'><img src="./images/wRain.png" alt=""></a>
         <a href="#" id='weather4th'><img src="./images/wSnow.png" alt=""></a>
     </div>
-    <a class="side-bar-toggle">選擇月份</a>
+    <a class="side-bar-toggle" style="display: none;">選擇月份</a>
     <img id='preloadImage' src="./images/attach/06.png" style="visibility: hidden;" width="0" height="0" hidden>
 </body>
 <script>
@@ -172,14 +172,14 @@
 
             for (let i = 0; i < months[mon].length; i++) {
                 /* 特別處理 */
-                if (mon == 12 && !specialDone) {
-                    divBlock.innerHTML += `
-                        <img id='special-one' src='./images/special-one.png' width='500px' style='z-index: 110;'>
-                    `
-                    specialDone = true;
-                }
+                // if (mon == 12 && !specialDone) {
+                //     divBlock.innerHTML += `
+                //         <img id='special-one' src='./images/special-one.png' width='500px' style='z-index: 110;'>
+                //     `
+                //     specialDone = true;
+                // }
                 let customImg = months[mon][i][2] ? 'custom-img' : '';
-                let cuatomImgHint = `./images/trash${Math.floor(Math.random() * 5 + 1)}.png`;
+                let cuatomImgHint = `./images/trash${Math.floor(Math.random() * 6 + 1)}.png`;
                 let cuatomImgCursor = months[mon][i][2] ? 'cursor: pointer' : '';
                 divBlock.innerHTML += `
                     <div id='${months[mon][i][2]}' class='trashImg ${customImg}' style="background-image: url(${cuatomImgHint}); ${cuatomImgCursor}">
@@ -237,6 +237,9 @@
                 let backgroundImgs = document.getElementsByClassName('content-imgs')[0];
                 let trashCan = document.getElementsByClassName('TrashCan')[0];
                 let monthClick = document.getElementsByClassName('month');
+                let sideBarToggle = document.getElementsByClassName('side-bar-toggle')[0];
+
+                sideBarToggle.style.display = 'block';
 
                 wholeWrap.removeChild(document.getElementsByClassName('preface')[0]);
                 backgroundImg.style.opacity = 1;
@@ -353,23 +356,24 @@
             for (let i = 0; i < trashImgData.length; i++) {
                 trashImgData[i].addEventListener('click', () => {
                     let urls = './images/attach/' + String(trashImgData[i].id);
-                    let originUrl = `./images/trash${Math.floor(Math.random() * 5 + 1)}.png`;
+                    let originUrl = `./images/trash${Math.floor(Math.random() * 6 + 1)}.png`;
 
                     if(trashImgData[i].style.opacity == '1'){
                         trashImgData[i].style.backgroundImage = `url(${originUrl})`;
                         trashImgData[i].style.backgroundSize = `contain`;
                         trashImgData[i].style.opacity = 0.9;
                         trashImgData[i].style.color = '#1a1a1a';
-                        trashImgData[i].style.transform = 'rotateY(-360deg)';
+                        // trashImgData[i].style.transform = 'rotateY(-359deg)';
 
-                        trashImgData[i].pseudoStyle('before', 'opacity', 0.4);
+                        trashImgData[i].pseudoStyle('before', 'opacity', 0.3);
                     }
                     else{
                         trashImgData[i].style.backgroundImage = `url(${urls})`;
                         trashImgData[i].style.backgroundSize = `contain`;
                         trashImgData[i].style.opacity = 1;
                         trashImgData[i].style.color = 'transparent';
-                        trashImgData[i].style.transform = 'rotateY(360deg)';
+                        // trashImgData[i].style.transform = 'rotateY(359deg)';
+                        // trashImgData[i].style.trashCan = 'rotate3d(0,1,0,360deg)';
     
                         trashImgData[i].pseudoStyle('before', 'opacity', 0);
                     }
